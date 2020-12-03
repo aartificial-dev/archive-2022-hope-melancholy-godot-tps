@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player/Player.cs" type="Script" id=1]
+[ext_resource path="res://Player/gurl.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Player/RoomTransition.cs" type="Script" id=3]
+[ext_resource path="res://Player/tex_9patch_select.png" type="Texture" id=4]
+[ext_resource path="res://Fonts/fnt_coders_crux.tres" type="DynamicFont" id=5]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.65127
+height = 4.2658
+
+[sub_resource type="SphereShape" id=2]
+radius = 0.01
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="ModelHolder" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="ModelHolder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.864, 4.843, 1.976 )
+visible = false
+
+[node name="RayCast" type="RayCast" parent="ModelHolder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.88314, 0.0862935 )
+enabled = true
+cast_to = Vector3( 0, 0, -4 )
+collision_mask = 262144
+collide_with_areas = true
+
+[node name="gurl" parent="ModelHolder" instance=ExtResource( 2 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 2.65492, 0 )
+shape = SubResource( 1 )
+
+[node name="CameraPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+
+[node name="StaticBody" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.30394, 0 )
+collision_layer = 524288
+collision_mask = 524288
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 480.0
+margin_bottom = 270.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="NinePatchRect" parent="Control"]
+margin_right = 24.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 12, 12 )
+texture = ExtResource( 4 )
+patch_margin_left = 11
+patch_margin_top = 11
+patch_margin_right = 11
+patch_margin_bottom = 11
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/Select"]
+margin_left = 26.0
+margin_top = 2.0
+margin_right = 62.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 5 )
+text = "Object"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+visible = false
+margin_right = 480.0
+margin_bottom = 270.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

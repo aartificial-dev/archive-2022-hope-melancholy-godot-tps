@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hope_Melancholy", "Hope_Melancholy.csproj", "{8A826101-570F-4A59-A821-357FF81DE8CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A826101-570F-4A59-A821-357FF81DE8CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A826101-570F-4A59-A821-357FF81DE8CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A826101-570F-4A59-A821-357FF81DE8CC}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{8A826101-570F-4A59-A821-357FF81DE8CC}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{8A826101-570F-4A59-A821-357FF81DE8CC}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{8A826101-570F-4A59-A821-357FF81DE8CC}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
