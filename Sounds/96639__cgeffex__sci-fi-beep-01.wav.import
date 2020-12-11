@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/96639__cgeffex__sci-fi-beep-01.wav-b82cafde612605136c99848e1e64d41e.sample"
+
+[deps]
+
+source_file="res://Sounds/96639__cgeffex__sci-fi-beep-01.wav"
+dest_files=[ "res://.import/96639__cgeffex__sci-fi-beep-01.wav-b82cafde612605136c99848e1e64d41e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

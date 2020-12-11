@@ -15,6 +15,7 @@ public class Player : KinematicBody {
     public AnimationNodeStateMachinePlayback stateMachine;
     public AnimationTree animTree;
 
+    public PlayerGUI playerGUI;
     public NinePatchRect _selectHi;
     public Label _selectLabel;
 
@@ -25,8 +26,9 @@ public class Player : KinematicBody {
         animTree = GetNode<AnimationTree>("ModelHolder/gurl/AnimationTree");
         stateMachine = (AnimationNodeStateMachinePlayback) animTree.Get("parameters/playback");
 
-        _selectHi = GetNode<NinePatchRect>("Control/Select");
-        _selectLabel = GetNode<Label>("Control/Select/Label");
+        playerGUI = GetNode<PlayerGUI>("GUI");
+        _selectHi = GetNode<NinePatchRect>("GUI/Select");
+        _selectLabel = GetNode<Label>("GUI/Select/Label");
     }
 
     public override void _Process(float delta) {
@@ -39,25 +41,13 @@ public class Player : KinematicBody {
             InteractiveObject _a = (InteractiveObject) GetNode<RayCast>("ModelHolder/RayCast").GetCollider();
             Vector2 _obj_pos = camera.camera.UnprojectPosition(_a.GlobalTransform.origin);
 
-            _selectHi.Visible = true;
-            _selectHi.RectSize = _a.labelSize;
-            _selectHi.RectPivotOffset = _a.labelSize / 2f;
-            _selectHi.RectPosition = _obj_pos - _selectHi.RectPivotOffset;// / topCamera.viewScale;
-            _selectLabel.RectPosition = new Vector2(_a.labelSize.x + 4f, 2);
-
-            String _name = _a.objName;
-            String _cur_text = _selectLabel.Text;
-            int _max_text = _name.Length;
-            int _text_pos = _cur_text.Length;
-            String _new_text = _name.Substr(0, Mathf.Min(_text_pos + 1, _max_text));
-            _selectLabel.Text = _new_text;
+            playerGUI.SelectShow(_obj_pos, _a.labelSize, _a.objName);
 
             if (Input.IsActionJustPressed("key_use")) {
                 _a.UseObject();
             }
         } else {
-            _selectHi.Visible = false;
-            _selectLabel.Text = "";
+            playerGUI.SelectHide();
         }
     }
 
@@ -79,13 +69,14 @@ public class Player : KinematicBody {
         if (direction == Vector3.Zero) {
             stateMachine.Travel("Idle-loop");
         } else {
-            modelHolder.RotateY(modelHolder.Translation.DirectionTo(modelHolder.Translation + direction).y);
+            modelHolder.LookAt(modelHolder.GlobalTransform.origin + new Vector3(direction.x, 0f, direction.z) * 10f, Vector3.Up);
             if (direction.Length() < 0.5f) {
                 stateMachine.Travel("WalkSlow-loop");
             } else if (direction.Length() < 0.8f) {
                 stateMachine.Travel("Walk-loop");
             } else {
-                stateMachine.Travel("Run-loop");
+                stateMachine.Travel("Walk-loop");
+                //stateMachine.Travel("Run-loop");
             }
         }
 

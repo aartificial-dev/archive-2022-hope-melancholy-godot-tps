@@ -44,6 +44,12 @@ public class PlayerCamera : Spatial {
 
             player.mousePos = GetMouseInWorld();
         }
+
+        // if (Input.IsActionJustPressed("mb_right")) {
+        //     Vector3 rot = this.RotationDegrees;
+        //     rot.y = 180 - rot.y;
+        //     this.RotationDegrees = rot;
+        // }
     }
 
     private void MoveCamera(float delta) {

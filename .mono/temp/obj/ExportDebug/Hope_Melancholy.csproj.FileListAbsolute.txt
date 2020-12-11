@@ -1,0 +1,8 @@
+C:\Users\alice\Documents\Godot\Hope_Melancholy\.mono\temp\bin\ExportDebug\Hope_Melancholy.dll
+C:\Users\alice\Documents\Godot\Hope_Melancholy\.mono\temp\bin\ExportDebug\Hope_Melancholy.pdb
+C:\Users\alice\Documents\Godot\Hope_Melancholy\.mono\temp\obj\ExportDebug\Hope_Melancholy.csprojAssemblyReference.cache
+C:\Users\alice\Documents\Godot\Hope_Melancholy\.mono\temp\obj\ExportDebug\Hope_Melancholy.AssemblyInfoInputs.cache
+C:\Users\alice\Documents\Godot\Hope_Melancholy\.mono\temp\obj\ExportDebug\Hope_Melancholy.AssemblyInfo.cs
+C:\Users\alice\Documents\Godot\Hope_Melancholy\.mono\temp\obj\ExportDebug\Hope_Melancholy.csproj.CoreCompileInputs.cache
+C:\Users\alice\Documents\Godot\Hope_Melancholy\.mono\temp\obj\ExportDebug\Hope_Melancholy.dll
+C:\Users\alice\Documents\Godot\Hope_Melancholy\.mono\temp\obj\ExportDebug\Hope_Melancholy.pdb

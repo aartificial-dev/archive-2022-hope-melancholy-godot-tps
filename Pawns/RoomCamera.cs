@@ -68,7 +68,7 @@ public class RoomCamera : Area {
         if (body.GetParent() is Player) {
             Player _pl = (Player) body.GetParent();
             _pl.camera.SetBorder(posTopRight, posBottomLeft);
-            _pl.GetNode<RoomTransition>("Control").FadeIn();
+            _pl.playerGUI.FadeIn();
             if (!(doorHighlights is null)) {
                 doorHighlights.Visible = true;
             }
@@ -81,7 +81,7 @@ public class RoomCamera : Area {
     public void ExitRoom(Node body) {
         if (body.GetParent() is Player) {
             Player _pl = (Player) body.GetParent();
-            _pl.GetNode<RoomTransition>("Control").FadeOut();
+            _pl.playerGUI.FadeOut();
             if (!(doorHighlights is null)) {
                 doorHighlights.Visible = false;
             }
