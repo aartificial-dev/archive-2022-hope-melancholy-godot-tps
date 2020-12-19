@@ -13,13 +13,15 @@ public class NewPlayer : KinematicBody {
     public float maxSpeed = 3f;
 
     private Spatial modelHolder;
-    private Spatial cameraHolder;
+    private NewPlayerCamera cameraHolder;
     public AnimationNodeStateMachinePlayback stateMachine;
     public AnimationTree animTree;
 
+    private float camRecoverTime = 1f;
+
     public override void _Ready() {
         modelHolder = GetNode<Spatial>(modelHolderPath);
-        cameraHolder = GetNode<Spatial>(cameraHolderPath);
+        cameraHolder = GetNode<NewPlayerCamera>(cameraHolderPath);
 
         animTree = GetNode<AnimationTree>("ModelHolder/PlayerModel/AnimationTree");
         stateMachine = (AnimationNodeStateMachinePlayback) animTree.Get("parameters/playback");
@@ -70,6 +72,7 @@ public class NewPlayer : KinematicBody {
         if (@event is InputEventMouseMotion eventMouseMotion) {
             //mousePos = eventMouseMotion.Position / viewScale;
             //mousePos = eventMouseMotion.Relative;
+            GetNode<Timer>("Timer").Start(camRecoverTime);
         }
     }
 
@@ -100,36 +103,43 @@ public class NewPlayer : KinematicBody {
             //GD.Print(Mathf.Rad2Deg(Mathf.Pi - Mathf.Atan2(-_movement.x, _movement.z)));
         } 
         if (_movement != Vector3.Zero) {
+            float fovLerpSpd = GameHelper.GetDeltaValue(0.01f, delta);
             if (Input.IsActionPressed("move_sprint")) {
                 stateMachine.Travel("Run-loop");
+                camRecoverTime = 0.4f;
+                cameraHolder.InterpolateFOV(75f, fovLerpSpd);
             } else 
             if (Input.IsActionPressed("move_slow")){
                 stateMachine.Travel("WalkSlow-loop");
+                camRecoverTime = 2f;
+                cameraHolder.InterpolateFOV(65f, fovLerpSpd);
             } else {
                 stateMachine.Travel("Walk-loop");
+                camRecoverTime = 1f;
+                cameraHolder.InterpolateFOV(70f, fovLerpSpd);
+            }
+            if (GetNode<Timer>("Timer").TimeLeft == 0f) {
+                float normalLerpSpd = GameHelper.GetDeltaValue(0.05f / camRecoverTime, delta);
+                cameraHolder.InterpolateX(0f, normalLerpSpd);
             }
         } else {
             stateMachine.Travel("Idle-loop");
         }
 
-        //Vector3 _velocity = _movement;
-
         Transform rootMotion = animTree.GetRootMotionTransform();
 
         Vector3 _rott = modelHolder.Rotation;
         float _angg = 0f;
-        if (_movement != Vector3.Zero) {
+        if (_movement != Vector3.Zero) { // temporary. remove after animations redo
             _angg = Mathf.Pi - Mathf.Atan2(-_movement.x, _movement.z);
         }
 
-        Vector3 _velocity = rootMotion.origin.Rotated(Vector3.Up, cameraHolder.Rotation.y + _angg + Mathf.Pi) / delta;//rootMotion.origin.Rotated(Vector3.Up, modelHolder.Rotation.y + Mathf.Pi) / delta;
+        Vector3 _velocity = rootMotion.origin.Rotated(Vector3.Up, cameraHolder.Rotation.y + _angg + Mathf.Pi) / delta;
 
         if (!this.IsOnFloor()) {
             _velocity.y = -gravity;
         }
 
-        //_velocity = _velocity.Rotated(Vector3.Up, cameraHolder.Rotation.y);
-        //GD.Print(_velocity);
 
         this.MoveAndSlide(_velocity, Vector3.Up, true, 4, 0.785f, false);
     }

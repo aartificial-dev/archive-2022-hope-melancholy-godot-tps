@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Models/Materials/mat_office.tres" type="Material" id=1]
 [ext_resource path="res://Models/Import Obj/wirebox.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Models/Wirebox.cs" type="Script" id=3]
 [ext_resource path="res://Sounds/327735__distillerystudio__error-04.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/snd_wirebox_bzz.wav" type="AudioStream" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.40978, 4.47995, 1 )
@@ -33,3 +34,9 @@ shape = SubResource( 2 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
+max_distance = 20.0
+emission_angle_degrees = 83.0

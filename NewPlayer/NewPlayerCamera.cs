@@ -23,16 +23,10 @@ public class NewPlayerCamera : Spatial {
 
     private Vector2 mousePos = Vector2.Zero;
 
-    private SkeletonIK skeletIK;
-    private Position3D position3D;
-
     public override void _Ready() {
         collisionArea = GetNode<Area>("Camera/Area");
         collisionArea.Connect("body_entered", this, nameof(BodyEntered));
         collisionArea.Connect("body_exited", this, nameof(BodyExited));
-
-        skeletIK = GetNode<SkeletonIK>("../PlayerModel/Armature/Skeleton/SkeletonIK");
-        position3D = GetNode<Position3D>("../PlayerModel/Armature/Skeleton/SkeletonIK/Position3D");
     }
 
     public override void _Process(float delta) {
@@ -50,15 +44,14 @@ public class NewPlayerCamera : Spatial {
             defaultCameraPos = tiltLookForward;
         }
 
+        float zoomLerpSpd = GameHelper.GetDeltaValue(0.1f, delta); // 0.25
         if (Input.IsActionPressed("mb_right")) {
             //new Vector3(1.5f, 0f, 1.5f)
-            float lerpSpd = 0.25f;
-            desiredCameraPos.x = Mathf.Lerp(desiredCameraPos.x, 1.5f, lerpSpd);
-            desiredCameraPos.z = Mathf.Lerp(desiredCameraPos.z, 1.5f, lerpSpd);
-            desiredCameraPos.y = Mathf.Lerp(desiredCameraPos.y, defaultCameraPos.y, lerpSpd);
+            desiredCameraPos.x = Mathf.Lerp(desiredCameraPos.x, 1.35f, zoomLerpSpd);
+            desiredCameraPos.z = Mathf.Lerp(desiredCameraPos.z, 1.35f, zoomLerpSpd);
+            desiredCameraPos.y = Mathf.Lerp(desiredCameraPos.y, defaultCameraPos.y, zoomLerpSpd);
         } else {
-            float lerpSpd = 0.25f;
-            desiredCameraPos = desiredCameraPos.LinearInterpolate(defaultCameraPos, lerpSpd);
+            desiredCameraPos = desiredCameraPos.LinearInterpolate(defaultCameraPos, zoomLerpSpd);
         }        
 
         Vector3 _defCamPos = desiredCameraPos;
@@ -74,7 +67,8 @@ public class NewPlayerCamera : Spatial {
             _camPos = _desired * (_len / _maxlen);
         }
         Camera _cam = GetNode<Camera>("Camera");
-        _cam.Translation = _cam.Translation.LinearInterpolate(_camPos, 0.5f);
+        float camLerpSpd = GameHelper.GetDeltaValue(0.1f, delta); // 0.5f
+        _cam.Translation = _cam.Translation.LinearInterpolate(_camPos, camLerpSpd);
 
     }
     
@@ -84,32 +78,50 @@ public class NewPlayerCamera : Spatial {
             mousePos = eventMouseMotion.Relative;
         }
     }
+
+    public void InterpolateX(float x, float amount) {
+        desiredRotation.x = Mathf.LerpAngle(desiredRotation.x, x, amount);
+    }
+
+    public void InterpolateFOV(float fov, float amount) {
+        Camera _cam = GetNode<Camera>("Camera");
+        _cam.Fov = Mathf.Lerp(_cam.Fov, fov, amount);
+    }
     
 
     private void ProcessMouse(float delta) {
         float _cameraPan = mousePos.x;
         float _cameraTilt = mousePos.y;
 
-        desiredRotation.x += _cameraTilt * delta * mouseSensetivity.y * (invertMouseY ? -1f : 1f);
-        desiredRotation.y += _cameraPan * delta * mouseSensetivity.x * (invertMouseX ? -1f : 1f);
+        Vector3 wantedRotation = desiredRotation;
 
-        desiredRotation.x = Mathf.Clamp(desiredRotation.x, Mathf.Deg2Rad(maxTilt.x), Mathf.Deg2Rad(maxTilt.y));
+        wantedRotation.x += _cameraTilt * delta * mouseSensetivity.y * (invertMouseY ? -1f : 1f);
+        wantedRotation.y += _cameraPan * delta * mouseSensetivity.x * (invertMouseX ? -1f : 1f);
 
-        desiredRotation.y = Mathf.Wrap(desiredRotation.y, 0, Mathf.Tau);
-        // cameraHolder.GlobalRotate(Vector3.Up, _cameraPan * delta * mouseSensetivity.x);
-        // cameraHolder.GlobalRotate(Vector3.Right, _cameraTilt * delta * mouseSensetivity.y);
+        wantedRotation.x = Mathf.Clamp(wantedRotation.x, Mathf.Deg2Rad(maxTilt.x), Mathf.Deg2Rad(maxTilt.y));
 
-        float lerpSpd = 0.1f;
+        wantedRotation.y = Mathf.Wrap(wantedRotation.y, 0, Mathf.Tau);
+
+        if (Mathf.Abs(Mathf.Rad2Deg(AngleDiff(this.Rotation.y, wantedRotation.y))) <= 90f) {
+            desiredRotation.y = wantedRotation.y;
+        }
+        desiredRotation.x = wantedRotation.x;
+        
         Vector3 _rot = this.Rotation;
+        float turnLerpSpd = GameHelper.GetDeltaValue(0.05f, delta); // 0.1f // 0.05f
+        _rot.x = Mathf.LerpAngle(_rot.x, desiredRotation.x, turnLerpSpd);
+        _rot.y = Mathf.LerpAngle(_rot.y, desiredRotation.y, turnLerpSpd);
 
-        _rot.x = Mathf.LerpAngle(_rot.x, desiredRotation.x, lerpSpd);
-        _rot.y = Mathf.LerpAngle(_rot.y, desiredRotation.y, lerpSpd);
-
+        _rot.y = Mathf.Wrap(_rot.y, 0, Mathf.Tau);
         this.Rotation = _rot;
 
-        //GD.Print(cameraHolder.RotationDegrees);
-
         mousePos = Vector2.Zero;
+    }
+
+    private float AngleDiff(float from, float to) {
+        float ans = Mathf.PosMod(to - from, Mathf.Tau);
+        if (ans > Mathf.Pi) ans -= Mathf.Tau;
+        return ans;
     }
 
     public void BodyEntered(Node _body) {
