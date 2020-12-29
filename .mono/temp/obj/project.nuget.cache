@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mNRP+SoufMjwyB3xmpZoBAJXoMrmbc1FDlo5Kx89eKZeFCBYetxNCAMlu5idxBktZKqHQ8HfRFb+kmuOy/fntA==",
+  "dgSpecHash": "kXyymLBeROvcVCbLMFcwoe2gLVWZfCBUlGqHp01jLM0Ae0iA65vGrZeCr6czkpmEK//AkQhJyg3dtk5668jaAg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alice\\Documents\\Godot\\Hope_Melancholy\\Hope_Melancholy.csproj",
+  "projectFilePath": "C:\\Users\\alice\\Git\\hope_gd\\Hope_Melancholy.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

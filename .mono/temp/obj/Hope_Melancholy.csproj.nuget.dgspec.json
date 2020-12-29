@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alice\\Documents\\Godot\\Hope_Melancholy\\Hope_Melancholy.csproj": {}
+    "C:\\Users\\alice\\Git\\hope_gd\\Hope_Melancholy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alice\\Documents\\Godot\\Hope_Melancholy\\Hope_Melancholy.csproj": {
+    "C:\\Users\\alice\\Git\\hope_gd\\Hope_Melancholy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alice\\Documents\\Godot\\Hope_Melancholy\\Hope_Melancholy.csproj",
+        "projectUniqueName": "C:\\Users\\alice\\Git\\hope_gd\\Hope_Melancholy.csproj",
         "projectName": "Hope_Melancholy",
-        "projectPath": "C:\\Users\\alice\\Documents\\Godot\\Hope_Melancholy\\Hope_Melancholy.csproj",
+        "projectPath": "C:\\Users\\alice\\Git\\hope_gd\\Hope_Melancholy.csproj",
         "packagesPath": "C:\\Users\\alice\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alice\\Documents\\Godot\\Hope_Melancholy\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\alice\\Git\\hope_gd\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\alice\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -37,7 +37,7 @@
       "frameworks": {
         "net472": {
           "targetAlias": "net472",
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
