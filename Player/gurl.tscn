@@ -1789,7 +1789,7 @@ bones/4/name = "Chest"
 bones/4/parent = 3
 bones/4/rest = Transform( 1, 4.48772e-07, 5.79424e-09, -4.48219e-07, 0.997939, 0.0641629, 2.30122e-08, -0.0641629, 0.997939, -2.91038e-11, -4.47035e-08, -0.585573 )
 bones/4/enabled = true
-bones/4/bound_children = [  ]
+bones/4/bound_children = [ NodePath("BoneAttachment") ]
 bones/5/name = "Neck"
 bones/5/parent = 4
 bones/5/rest = Transform( 1, 1.38015e-08, 1.11125e-08, -1.34517e-08, 0.999523, -0.030874, -1.15333e-08, 0.030874, 0.999523, -5.82077e-11, 8.9407e-08, -0.825052 )
@@ -2014,6 +2014,19 @@ bones/48/bound_children = [  ]
 [node name="Cube" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = SubResource( 1 )
 material/0 = null
+
+[node name="SkeletonIK" type="SkeletonIK" parent="Armature/Skeleton"]
+process_priority = 1
+root_bone = "Neck"
+tip_bone = "Head"
+target_node = NodePath("../BoneAttachment/Position3D")
+
+[node name="BoneAttachment" type="BoneAttachment" parent="Armature/Skeleton"]
+transform = Transform( 0.998996, -0.0413802, 0.0171427, 0.0196739, 0.0615583, -0.99791, 0.0402382, 0.997261, 0.0623137, -0.0670674, 3.6915, 0.130025 )
+bone_name = "Chest"
+
+[node name="Position3D" type="Position3D" parent="Armature/Skeleton/BoneAttachment"]
+transform = Transform( 0.997461, -0.0673035, 0.0231945, 0.0711718, 0.949377, -0.305967, -0.00142797, 0.306848, 0.951743, 0, 0.133, -1.258 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle-loop = SubResource( 2 )

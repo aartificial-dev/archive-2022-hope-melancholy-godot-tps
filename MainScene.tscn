@@ -85,6 +85,7 @@ interior = true
 data = SubResource( 2 )
 
 [node name="NewPlayer" parent="DefaultViewport/Viewport/SceneNodes" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 
 [node name="Level" type="Spatial" parent="DefaultViewport/Viewport/SceneNodes"]
 

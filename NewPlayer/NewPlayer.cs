@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class NewPlayer : KinematicBody {
 
@@ -16,6 +17,14 @@ public class NewPlayer : KinematicBody {
 	private NewPlayerCamera cameraHolder;
 	public AnimationNodeStateMachinePlayback stateMachine;
 	public AnimationTree animTree;
+
+	private SkeletonIK headSkelet;
+	private Position3D headTrack;
+	private Vector3 headAngleMax = new Vector3(30f, 25f, 45f);
+	private Vector3 headAngleMin = new Vector3(-30f, -25f, -45f);
+	private Vector3 headAngleDef = new Vector3(15f, 0, 0); // Nod (look +down -up), Tilt (tilt +right -left), Shake (look -left +right)
+	private Vector3 headAngleCur = Vector3.Zero;
+	
 
 	private float camRecoverTime = 1f;
 
@@ -42,6 +51,13 @@ public class NewPlayer : KinematicBody {
 		int _trackSlowWalk = GameHelper.AnimationPlayerAddAudioTrack(animPlayer, "WalkSlow-loop", "AudioStreamPlayer:playing");
 		GameHelper.AnimationPlayerAddAudioKey(animPlayer, "Walk-loop", _trackSlowWalk, 0f, sndPlayer.Stream);
 		GameHelper.AnimationPlayerAddAudioKey(animPlayer, "Walk-loop", _trackSlowWalk, 2.6f / 2f, sndPlayer.Stream);
+
+		headSkelet = GetNode<SkeletonIK>("ModelHolder/PlayerModel/Armature/Skeleton/SkeletonIK");
+		headTrack = GetNode<Position3D>("ModelHolder/PlayerModel/Armature/Skeleton/BoneAttachment/Position3D");
+
+		headSkelet.Start();
+		headAngleCur = headAngleDef;
+
 	}
 
 	public override void _Process(float delta) {
@@ -59,6 +75,7 @@ public class NewPlayer : KinematicBody {
 		} else {
 			// playerGUI.SelectHide();
 		}
+
 	}
 
 	public override void _PhysicsProcess(float delta) {
@@ -140,6 +157,7 @@ public class NewPlayer : KinematicBody {
 
 		this.MoveAndSlide(_velocity, Vector3.Up, true, 4, 0.785f, false);
 	}
+ 
 
 	// public Vector3 GetMouseInWorld() {
 	//     Plane dropPlane = new Plane(0f, 1f, 0f, pivotOffset);
