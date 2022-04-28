@@ -51,10 +51,10 @@ script = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2 )
 
 [node name="Area" type="Area" parent="CameraHolder/Camera"]
+collision_layer = 0
 input_ray_pickable = false
 gravity_vec = Vector3( 0, 0, 0 )
 gravity = 0.0
-collision_layer = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="CameraHolder/Camera/Area"]
 visible = false
@@ -83,9 +83,9 @@ margin_right = 94.7835
 margin_bottom = 7.45935
 grow_horizontal = 2
 grow_vertical = 0
-custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 0.231373 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0.156863 )
+custom_fonts/font = SubResource( 3 )
 text = "h.o.p.e. melancholy pre-alpha"
 align = 1
 valign = 2

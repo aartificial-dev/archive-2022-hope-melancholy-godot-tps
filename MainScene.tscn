@@ -90,9 +90,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 [node name="Level" type="Spatial" parent="DefaultViewport/Viewport/SceneNodes"]
 
 [node name="StaticBody" type="StaticBody" parent="DefaultViewport/Viewport/SceneNodes/Level"]
-input_ray_pickable = false
 collision_layer = 262145
 collision_mask = 262145
+input_ray_pickable = false
 physics_material_override = SubResource( 3 )
 
 [node name="office-level" type="MeshInstance" parent="DefaultViewport/Viewport/SceneNodes/Level/StaticBody"]
