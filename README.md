@@ -1,28 +1,29 @@
-# PROJECT_NAME
+# Hope: Melancholy
 
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC-BY-NC-ND)</a>.
 ________________
 
-**Engine - PROJECT_ENGINE**
+**Engine - Godot 3**
 
-**Language - PROJECT_LANGUAGE**
+**Language - C#**
 
 **Source Code - Available: Latest version**
-**Source Code - Available: Old version**
-**Source Code - Lost**
 
 **Executables - Multiple versions up to latest**
-**Executables - Multiple old versions**
-**Executables - Single latest version**
-**Executables - Single old version**
-**Executables - Lost**
 
-**Development Date - 2015 to 2024**
+**Development Date - 2022**
 
 ________________
 
 ## Description
-PROJECT_DESCRIPTION
+TPS version of https://github.com/artificial-studio/hope-melancholy-gms2
+
+Second Godot project
 
 ## Screenshots
-<img src="readme/IMAGE" width="48%"> <img src="readme/IMAGE" width="48%">
+<img src="readme/gif_rootmotion.gif" width="48%"> <img src="readme/perspective-test.gif" width="48%">
+<img src="readme/screen.png" width="48%"> 
+
+Later alternative version mockup
+
+<img src="readme/experiment.png" width="100%">
