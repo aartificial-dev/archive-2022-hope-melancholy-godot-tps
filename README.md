@@ -16,7 +16,7 @@ ________________
 ________________
 
 ## Description
-TPS version of https://github.com/artificial-studio/hope-melancholy-gms2
+TPS version of https://github.com/artificial-studio/archive-2020-hope-melancholy-gms2
 
 Second Godot project
 
